@@ -1,8 +1,8 @@
-const Poster = require("../Models/AdvertisingBoard");
-const Review = require("../Models/Review");
+const Poster = require("../models/AdvertisingBoard");
+const Review = require("../models/Review");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsyncWrapper");
-const { createOne, getAll, deleteOne } = require("../utils/CRUDfactory");
+const { createOne, getAll, deleteOne } = require("../utils/crud");
 
 exports.createReview = catchAsync(async (req, res, next) => {
     if (!req.params?.id) {

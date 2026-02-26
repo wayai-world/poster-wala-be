@@ -4,7 +4,7 @@
 
 const express = require("express");
 const router = express.Router();
-const a = require("../Controllers/analyticsController");
+const a = require("../controllers/analyticsController");
 const { isLoggedIn } = require("../Middleware/isLoggedIn");
 
 // Apply auth to all analytics routes

@@ -1,6 +1,6 @@
 // controllers/leadController.js
-const Lead = require("../Models/Lead");
-const AdvertisingBoard = require("../Models/AdvertisingBoard");
+const Lead = require("../models/Lead");
+const AdvertisingBoard = require("../models/AdvertisingBoard");
 // const BookingController = require("./bookingController"); // used for conversion
 // const catchAsync = require("../utils/catchAsync");
 const appError = require("../utils/appError");

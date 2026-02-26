@@ -1,7 +1,7 @@
 // routes/bookings.js
 const express = require("express");
 const router = express.Router();
-const bookingController = require("../Controllers/bookingController");
+const bookingController = require("../controllers/bookingController");
 const { isLoggedIn } = require("../Middleware/isLoggedIn");
 // const auth = require("../middleware/auth");
 

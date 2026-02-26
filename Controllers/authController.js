@@ -1,11 +1,11 @@
-const User = require("../Models/User");
+const User = require("../models/User");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsyncWrapper");
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 const sendEmail = require("../utils/sendMail");
-const Role = require("../Models/Roles");
-const Company = require("../Models/Company");
+const Role = require("../models/Roles");
+const Company = require("../models/Company");
 const { default: mongoose } = require("mongoose");
 const { ROLES, MODULES, MESSAGES, STATUS_CODES } = require("../constants/constants");
 

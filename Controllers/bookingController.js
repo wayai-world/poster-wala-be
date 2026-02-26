@@ -1,8 +1,8 @@
 // controllers/bookingController.js
 const mongoose = require("mongoose");
 const Booking = require("../models/Booking");
-const AdvertisingBoard = require("../Models/AdvertisingBoard");
-const Lead = require("../Models/Lead"); // you said you'll remove lead controller/schema, but convert uses existing Lead model
+const AdvertisingBoard = require("../models/AdvertisingBoard");
+const Lead = require("../models/Lead"); // you said you'll remove lead controller/schema, but convert uses existing Lead model
 // const catchAsync = require("../utils/catchAsync"    );
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsyncWrapper");

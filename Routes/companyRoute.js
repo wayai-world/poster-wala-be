@@ -1,6 +1,6 @@
 
 const express = require("express");
-const { createCompany, updateCompany, getCompany, getAllCompany, deleteCompany } = require("../Controllers/companyController");
+const { createCompany, updateCompany, getCompany, getAllCompany, deleteCompany } = require("../controllers/companyController");
 const { isLoggedIn } = require("../Middleware/isLoggedIn");
 const giveAccess = require("../Middleware/giveAccessTo");
 const Router = express.Router()

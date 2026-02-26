@@ -1,11 +1,11 @@
 // controllers/advertisingBoardController.js
-const AdvertisingBoard = require("../Models/AdvertisingBoard");
-const Company = require("../Models/Company");
+const AdvertisingBoard = require("../models/AdvertisingBoard");
+const Company = require("../models/Company");
 const appError = require("../utils/appError");
 const mongoose = require("mongoose");
 const S3Service = require("../services/aws/s3Service");
 const catchAsync = require("../utils/catchAsyncWrapper");
-const { getAll } = require("../utils/CRUDfactory");
+const { getAll } = require("../utils/crud");
 
 /**
  * multer: expects req.files with fields:

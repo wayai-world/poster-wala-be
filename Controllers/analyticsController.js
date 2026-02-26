@@ -2,13 +2,13 @@
 // Comprehensive analytics for admin dashboard — PlaceIt
 // Uses AnalyticsAggregationBuilder for dynamic pipelines
 
-const AdvertisingBoard = require("../Models/AdvertisingBoard");
-const Booking = require("../Models/Booking");
-const Lead = require("../Models/Lead");
-const BoardLead = require("../Models/BoardLead");
-const User = require("../Models/User");
-const Company = require("../Models/Company");
-const Review = require("../Models/Review");
+const AdvertisingBoard = require("../models/AdvertisingBoard");
+const Booking = require("../models/Booking");
+const Lead = require("../models/Lead");
+const BoardLead = require("../models/BoardLead");
+const User = require("../models/User");
+const Company = require("../models/Company");
+const Review = require("../models/Review");
 const catchAsync = require("../utils/catchAsyncWrapper");
 const AnalyticsAggregationBuilder = require("../utils/analyticsQueryBuilder");
 

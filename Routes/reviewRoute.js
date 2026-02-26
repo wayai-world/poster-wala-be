@@ -1,9 +1,9 @@
 
 const express = require("express");
-const { createCompany, updateCompany, getCompany, getAllCompany, deleteCompany } = require("../Controllers/companyController");
+const { createCompany, updateCompany, getCompany, getAllCompany, deleteCompany } = require("../controllers/companyController");
 const { isLoggedIn } = require("../Middleware/isLoggedIn");
 const giveAccess = require("../Middleware/giveAccessTo");
-const { createReview, getAllReview, checkUserDeletingReview } = require("../Controllers/reviewController");
+const { createReview, getAllReview, checkUserDeletingReview } = require("../controllers/reviewController");
 const Router = express.Router()
 
 Router.use(isLoggedIn)

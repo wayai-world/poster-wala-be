@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const leadController = require("../Controllers/leadController");
+const leadController = require("../controllers/leadController");
 const { isLoggedIn } = require("../Middleware/isLoggedIn");
 const skipCompanyMiddleware = require("../Middleware/skipCompanyMiddleware");
 // const auth = require("../middleware/auth"); // apply as needed

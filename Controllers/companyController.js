@@ -1,8 +1,8 @@
-const Company = require("../Models/Company");
-const User = require("../Models/User");
+const Company = require("../models/Company");
+const User = require("../models/User");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsyncWrapper");
-const { updateOne, getOne, getAll, deleteOne } = require("../utils/CRUDfactory");
+const { updateOne, getOne, getAll, deleteOne } = require("../utils/crud");
 
 exports.createCompany = catchAsync(async (req, res, next) => {
     const user = req?.user;

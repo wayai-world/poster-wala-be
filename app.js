@@ -7,14 +7,14 @@ const morgan = require('morgan');
 
 const cookieParser = require('cookie-parser');
 const globalErrorHandler = require('./utils/globalErrorHandler');
-const authRoute = require('./Routes/authRoutes');
-const companyRoute = require('./Routes/companyRoute');
-const advertiserRoute = require('./Routes/advertiserRoute');
-const leadRoute = require('./Routes/leadRoute');
-const bookingRoute = require('./Routes/bookingRoute');
-const reviewRoute = require('./Routes/reviewRoute');
-const userRoute = require('./Routes/userRoute');
-const analyticsRoute = require('./Routes/analyticsRoute');
+const authRoute = require('./routes/authRoutes');
+const companyRoute = require('./routes/companyRoute');
+const advertiserRoute = require('./routes/advertiserRoute');
+const leadRoute = require('./routes/leadRoute');
+const bookingRoute = require('./routes/bookingRoute');
+const reviewRoute = require('./routes/reviewRoute');
+const userRoute = require('./routes/userRoute');
+const analyticsRoute = require('./routes/analyticsRoute');
 // const companyRoute = require('./Routes/advertiserRoute');
 const path = require('path');
 

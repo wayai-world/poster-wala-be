@@ -1,5 +1,5 @@
-const User = require("../Models/User");
-const { getOne, getAll, updateOne } = require("../utils/CRUDfactory");
+const User = require("../models/User");
+const { getOne, getAll, updateOne } = require("../utils/crud");
 
 
 exports.getUserById = getOne(User)

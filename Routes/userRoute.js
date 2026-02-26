@@ -1,5 +1,5 @@
 const express = require('express');
-const { updateUser, getUserById } = require('../Controllers/userController');
+const { updateUser, getUserById } = require('../controllers/userController');
 const Router = express.Router()
 
 Router.route("/").patch(updateUser)
