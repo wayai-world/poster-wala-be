@@ -1,0 +1,118 @@
+# Analytics API — Implementation Walkthrough
+
+## What Was Built
+
+3 files created/modified to deliver a complete admin analytics API at `/api/v1/analytics`.
+
+| File | Lines | Role |
+|---|---|---|
+| [analyticsController.js](file:///c:/Users/chand/Desktop/html/PlaceIt/backend/Controllers/analyticsController.js) | 1346 | 40+ aggregation handlers |
+| [analyticsRoute.js](file:///c:/Users/chand/Desktop/html/PlaceIt/backend/Routes/analyticsRoute.js) | 146 | 40 GET routes |
+| [app.js](file:///c:/Users/chand/Desktop/html/PlaceIt/backend/app.js) | modified | Route registered |
+
+All routes require `isLoggedIn` auth middleware. All responses follow `{ status: true, data: ... }`.
+
+---
+
+## Complete Route Reference
+
+### 🌐 Overview
+| Method | Route | What it returns |
+|---|---|---|
+| GET | `/api/v1/analytics/overview` | Platform KPIs: total boards, companies, users, leads, revenue, outstanding |
+
+### 📋 Boards (`/api/v1/analytics/boards/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total, active/inactive, digital/physical, published, avg footfall & impressions |
+| `/by-type` | LED_SCREEN, BILLBOARD, POSTER… — count + avgRate + avgImpressions |
+| `/by-city` | City-wise board distribution + totalImpressions per city |
+| `/by-state` | State-wise + distinct city count |
+| `/by-pricing-model` | PER_DAY / PER_SLOT / CPM / FLAT — count + min/max/avg rate |
+| `/occupancy` | Occupied vs free + occupancyRate% + totalFootfall/impressions |
+| `/top-performing` | Top N boards by impressions (includes company name) |
+| `/availability-stats` | Total/available/booked slots + avgSlotPrice |
+| `/orientation-split` | PORTRAIT / LANDSCAPE / SQUARE breakdown |
+| `/created-over-time` | Monthly/weekly creation trend (`?unit=month\|week\|day\|year`) |
+
+### 💰 Bookings (`/api/v1/analytics/bookings/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total revenue, paid, outstanding, collectionRate%, avg/min/max value |
+| `/by-status` | Count + amount per CONFIRMED/PENDING/CANCELLED/COMPLETED |
+| `/by-payment-status` | PAID/PARTIALLY_PAID/PENDING/REFUNDED with outstanding breakdown |
+| `/revenue-over-time` | Monthly revenue trend for confirmed+completed bookings |
+| `/top-boards` | Top boards by revenue (with board details joined) |
+| `/avg-duration` | Avg, min, max booking duration in days |
+| `/payment-methods` | Which payment methods are used most (from embedded payments array) |
+| `/cancellation-rate` | `cancellationRate%` per period |
+| `/revenue-by-company` | Revenue grouped per company |
+
+### 🎯 Leads (`/api/v1/analytics/leads/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total, converted, conversionRate%, lossRate%, avgConversionAmount |
+| `/by-status` | NOT_STARTED → DEAL_CLOSED/LOST funnel |
+| `/by-source` | WEBSITE/WHATSAPP/SALES/OTHER with per-source conversionRate% |
+| `/conversion-rate-over-time` | Monthly total vs converted vs lost trend |
+| `/by-ad-type` | IMAGE/VIDEO/POSTER/BANNER with conversion count |
+| `/top-boards` | Boards attracting most leads (joined with board details) |
+
+### 📌 Board Leads (`/api/v1/analytics/board-leads/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total, followUpRate%, avg/min/max budget, negotiable count |
+| `/by-status` | NEW → CONFIRMED/REJECTED/CANCELLED funnel |
+| `/by-source` | WEBSITE/API/WHATSAPP/EMAIL/PHONE/SALES_REP breakdown |
+| `/by-ad-type` | IMAGE/VIDEO/POSTER/BANNER/HTML/OTHER |
+| `/budget-distribution` | Budget summary + bucket breakdown (<10k, 10k-50k, 50k-100k, 100k-500k, >500k) |
+| `/follow-up-stats` | followUpRate%, avg days to follow-up |
+| `/over-time` | Monthly new board leads trend |
+
+### 👤 Users (`/api/v1/analytics/users/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total, with/without company, distinct state count |
+| `/by-role` | ADMIN/USER/SUPER_ADMIN count (joined with roles collection) |
+| `/by-state` | User count per state |
+| `/by-company` | Users per company (top N, with company name) |
+| `/growth-over-time` | Monthly registration trend (derived from ObjectId timestamp) |
+
+### 🏢 Companies (`/api/v1/analytics/companies/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total, avgReview, companies with/without boards, avgBoardsPerCompany |
+| `/rating-distribution` | Bucket by rating band (1-2 ⭐, 2-3, 3-4, 4-5) |
+| `/top-rated` | Top N companies by averageReview with board count |
+| `/boards-per-company` | Board count + impressions + avgRate per company |
+
+### ⭐ Reviews (`/api/v1/analytics/reviews/`)
+| Route | Insight |
+|---|---|
+| `/summary` | Total, avgRating, per-star breakdown (1★ through 5★) |
+| `/by-rating` | Count + withMessage per star value |
+| `/by-company` | Avg/min/max rating per company (`?sort=asc` for worst rated) |
+| `/over-time` | Monthly review trend + avgRating per period |
+
+---
+
+## Supported Query Parameters
+
+| Param | Applies To | Description |
+|---|---|---|
+| `startDate` | most endpoints | ISO date to filter from (matches `createdAt`) |
+| `endDate` | most endpoints | ISO date to filter until |
+| `unit` | `*-over-time`, `revenue-over-time`, `cancellation-rate` | `month`(default) / `week` / `day` / `year` |
+| `limit` | `top-*`, `by-city`, `by-company`, `*-by-company` | Max results returned (default 10 or 20) |
+| `sort` | `reviews/by-company` | `asc` = worst rated first, `desc`(default) = best rated first |
+
+---
+
+## Implementation Notes
+
+- **[AnalyticsAggregationBuilder](file:///c:/Users/chand/Desktop/html/PlaceIt/backend/utils/analyticsQueryBuilder.js#19-1130)** is used in `boards/summary` for dynamic pre-filtering via query string. The pattern can be extended to any endpoint by swapping the initial `$match` stage.
+- All cross-collection joins use `$lookup` + `preserveNullAndEmptyArrays: true` so missing refs don't drop records.
+- **Booking payments** analytics unwinds the embedded `payments` array — only `COMPLETED` payments are counted for method breakdown.
+- **User growth** uses `$dateTrunc` on `_id` (ObjectId contains creation timestamp) since the User schema has no explicit `createdAt`.
+- **Budget buckets** for board leads use finite boundaries with `Infinity` for the upper bound (`>500k`).
+- All rate calculations (conversionRate, occupancyRate, cancellationRate, collectionRate) are computed in the pipeline with safe division guards (`$cond` checking divisor > 0).

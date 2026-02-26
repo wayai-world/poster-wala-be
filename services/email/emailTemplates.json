@@ -1,0 +1,141 @@
+[
+ {
+  "name": "LMS-New-User",
+  "subject": "Welcome to <companyName> — Your account is ready",
+  "subject-seeding": {
+    "companyName": "<companyName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "userEmail": "<userEmail>",
+    "temporaryPassword": "<temporaryPassword>",
+    "companyName": "<companyName>",
+    "loginUrl": "<loginUrl>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Welcome to <companyName></title><style>:root{--bg:#f7fafc;--card:#ffffff;--muted:#64748b;--text:#0f172a;--accent:#0ea5a3;--radius:14px}body{margin:0;background:var(--bg);font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:var(--radius);box-shadow:0 8px 30px rgba(16,24,40,.06);border:1px solid rgba(15,23,42,.04)}.inner{padding:36px}.logo{display:block;margin:0 auto 18px;max-width:140px}.h1{font-size:20px;margin:0 0 8px;font-weight:600}.lead{margin:0 0 18px;color:var(--muted);line-height:1.45}.box{background:#fbfdfc;padding:16px;border-radius:10px;border:1px solid rgba(14,165,163,.08);margin:16px 0}.cred{margin:6px 0;font-weight:600}.btn{display:inline-block;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:700;background:linear-gradient(90deg,var(--accent),#04b4a0);color:#fff}.muted{font-size:13px;color:var(--muted)}footer{padding:20px;text-align:center;font-size:12px;color:#94a3b8}@media(max-width:520px){.inner{padding:20px}}</style></head><body><div class='wrap'><div class='card'><div class='inner'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>Welcome, <userName> 👋</h1><p class='lead'>Your account at <strong><companyName></strong> has been created. Use the credentials below to sign in.</p><div class='box'><p class='cred'><strong>Email:</strong> <userEmail></p><p class='cred'><strong>Temporary Password:</strong> <temporaryPassword></p></div><p><a class='btn' href='<loginUrl>'>Sign in to your account</a></p></div><footer>This is an automated message — please do not reply.</footer></div></div></body></html>"
+},
+
+{
+  "name": "LMS-User-Reset-Password",
+  "subject": "Reset your <companyName> account password",
+  "subject-seeding": {
+    "companyName": "<companyName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "resetCode": "<resetCode>",
+    "expiryMinutes": "<expiryMinutes>",
+    "companyName": "<companyName>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Password reset</title><style>:root{--bg:#f7fafc;--card:#ffffff;--muted:#6b7280;--text:#0f172a;--accent:#0ea5a3}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,.06);border:1px solid rgba(2,6,23,.04)}.inner{padding:34px;text-align:center}.logo{max-width:140px;margin:0 auto 14px;display:block}.h1{font-size:22px;margin:8px 0;font-weight:700}.lead{color:var(--muted);margin:8px 0 16px}.code{display:inline-block;padding:12px 18px;border-radius:10px;background:#f3f6f5;border:1px dashed rgba(15,23,42,.06);font-weight:800;letter-spacing:4px;font-size:18px}.muted{font-size:13px;color:var(--muted)}@media(max-width:520px){.inner{padding:20px}}</style></head><body><div class='wrap'><div class='card'><div class='inner'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>Reset your password</h1><p class='lead'>Hi <userName>, use the code below to reset your <strong><companyName></strong> password. This code expires in <strong><expiryMinutes> minutes</strong>.</p><div class='code'><resetCode></div><p class='muted' style='margin-top:18px'>If you didn’t request this, you can safely ignore this email.</p></div></div></div></body></html>"
+},
+
+ {
+  "name": "LMS-Student-Onboard",
+  "subject": "Your <companyName> student account is ready",
+  "subject-seeding": {
+    "companyName": "<companyName>"
+  },
+  "to": "<studentEmail>",
+  "html-seeding": {
+    "studentName": "<studentName>",
+    "studentEmail": "<studentEmail>",
+    "temporaryPassword": "<temporaryPassword>",
+    "companyName": "<companyName>",
+    "loginUrl": "<loginUrl>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Student Account Created</title><style>:root{--bg:#f7fafc;--card:#ffffff;--muted:#6b7280;--text:#0f172a;--accent:#0ea5a3}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,.06);border:1px solid rgba(2,6,23,.04)}.inner{padding:34px;text-align:center}.logo{max-width:140px;margin:0 auto 14px;display:block}.h1{font-size:22px;margin:8px 0;font-weight:700}.lead{color:var(--muted);margin:8px 0 18px}.credentials{background:#f3f6f5;border:1px dashed rgba(15,23,42,.06);border-radius:10px;padding:16px;margin:18px 0}.credentials p{margin:6px 0;font-weight:600}.btn{display:inline-block;margin-top:18px;padding:12px 22px;border-radius:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:700}.muted{font-size:13px;color:var(--muted)}@media(max-width:520px){.inner{padding:20px}}</style></head><body><div class='wrap'><div class='card'><div class='inner'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>Welcome to <companyName></h1><p class='lead'>Hi <studentName>, your student account has been created. Use the credentials below to log in.</p><div class='credentials'><p><strong>Email:</strong> <studentEmail></p><p><strong>Temporary password:</strong> <temporaryPassword></p></div><a class='btn' href='<loginUrl>'>Go to Login</a><p class='muted' style='margin-top:18px'>Please change your password after first login for security.</p></div></div></div></body></html>"
+},
+
+ {
+  "name": "Learn-Student-Reset-Password",
+  "subject": "Reset your <companyName> student account password",
+  "subject-seeding": {
+    "companyName": "<companyName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "resetCode": "<resetCode>",
+    "expiryMinutes": "<expiryMinutes>",
+    "companyName": "<companyName>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Student Password Reset</title><style>:root{--bg:#f7fafc;--card:#ffffff;--accent:#0ea5a3;--muted:#6b7280;--text:#0f172a}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,0.06);padding:30px;border:1px solid rgba(2,6,23,0.04)}.inner{text-align:center}.logo{max-width:140px;margin:0 auto 12px}.h1{font-size:22px;margin:6px 0}.lead{color:var(--muted)}.code{display:inline-block;padding:12px 18px;border-radius:10px;background:#f3f6f5;border:1px dashed rgba(15,23,42,0.06);font-weight:800;letter-spacing:3px;font-size:18px;margin-top:12px}.muted{font-size:13px;color:var(--muted)}footer{padding:18px;text-align:center;font-size:13px;color:var(--muted)}@media(max-width:520px){.card{padding:20px}}</style></head><body><div class='wrap'><div class='card' role='article'><div class='inner'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>Reset your student password</h1><p class='lead'>Hi <userName>, use the verification code below to reset your password for <strong><companyName></strong>. This code expires in <strong><expiryMinutes> minutes</strong>.</p><div class='code'><resetCode></div><p class='muted' style='margin-top:16px'>If you did not request this, you can safely ignore this email.</p><hr style='border:none;border-top:1px solid rgba(2,6,23,0.04);margin:22px 0'/><p style='margin:0;font-size:14px'>Regards,<br/>Student Support — <companyName></p></div></div><footer>This is an automated message — please do not reply.</footer></div></body></html>"
+},
+
+ {
+  "name": "Learn-Classroom-Enrollment-Notification",
+  "subject": "You're enrolled: <courseName> — <companyName>",
+  "subject-seeding": {
+    "companyName": "<companyName>",
+    "courseName": "<courseName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "courseName": "<courseName>",
+    "classroomName": "<classroomName>",
+    "startDate": "<startDate>",
+    "companyName": "<companyName>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Enrollment confirmation</title><style>:root{--bg:#f8fafc;--card:#ffffff;--accent:#0ea5a3;--muted:#64748b;--text:#0f172a}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:16px;box-shadow:0 12px 36px rgba(2,6,23,0.06);padding:28px;border:1px solid rgba(2,6,23,0.04)}.logo{display:block;margin:0 auto 12px;max-width:140px}.h1{text-align:center;font-size:22px;margin-bottom:8px}.lead{color:var(--muted);text-align:center;margin-bottom:12px}.info{background:#fbfdfc;padding:16px;border-radius:12px;border:1px solid rgba(14,165,163,0.06)}.detail{margin:8px 0;color:var(--text);font-size:15px}.muted{font-size:13px;color:var(--muted)}footer{padding:18px;text-align:center;font-size:13px;color:var(--muted)}@media(max-width:520px){.card{padding:20px}}</style></head><body><div class='wrap'><div class='card' role='article'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>You're enrolled in <courseName></h1><p class='lead'>Hi <userName>, you have been successfully enrolled.</p><div class='info'><p class='detail'><strong>Course:</strong> <courseName></p><p class='detail'><strong>Classroom:</strong> <classroomName></p><p class='detail'><strong>Start date:</strong> <startDate></p></div><p class='muted' style='text-align:center;margin-top:16px'>You can now access your course from your LMS dashboard.</p><hr style='border:none;border-top:1px solid rgba(2,6,23,0.04);margin:22px 0'/><p style='text-align:center;margin:0;font-size:14px'>Learning Team — <companyName></p></div></div><footer>This is an automated message — please do not reply.</footer></body></html>"
+},
+
+{
+  "name": "Learn-Student-Onboarding-Complete",
+  "subject": "Welcome to <companyName>, <userName>!",
+  "subject-seeding": {
+    "companyName": "<companyName>",
+    "userName": "<userName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "companyName": "<companyName>",
+    "loginUrl": "<loginUrl>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Welcome</title><style>:root{--bg:#f7fafc;--card:#ffffff;--text:#0f172a;--accent:#0ea5a3;--muted:#64748b}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:16px;box-shadow:0 12px 36px rgba(2,6,23,0.06);padding:28px;border:1px solid rgba(2,6,23,0.04)}.logo{display:block;margin:0 auto 14px;max-width:140px}.h1{text-align:center;font-size:22px;margin-bottom:12px}.lead{text-align:center;color:var(--muted);margin-bottom:18px}.btn{display:inline-block;padding:12px 20px;border-radius:12px;text-decoration:none;font-weight:700;background:linear-gradient(90deg,var(--accent),#04b4a0);color:#fff}.muted{font-size:13px;color:var(--muted)}footer{padding:18px;text-align:center;font-size:13px;color:var(--muted)}@media(max-width:520px){.card{padding:20px}}</style></head><body><div class='wrap'><div class='card'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>Welcome to <companyName>, <userName>!</h1><p class='lead'>Your student account has been successfully set up. You can now access your LMS dashboard and start learning.</p><p style='text-align:center;margin:20px 0'><a class='btn' href='<loginUrl>'>Go to LMS</a></p><p class='muted' style='text-align:center;margin-top:10px'>This is an automated message — please do not reply.</p></div></div></body></html>"
+},
+
+ {
+  "name": "Learn-Student-Update-Profile-Otp",
+  "subject": "Verify your <companyName> profile update",
+  "subject-seeding": {
+    "companyName": "<companyName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "otpCode": "<otpCode>",
+    "expiryMinutes": "<expiryMinutes>",
+    "companyName": "<companyName>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width,initial-scale=1'/><title>Profile update verification</title><style>:root{--bg:#f7fafc;--card:#ffffff;--muted:#6b7280;--text:#0f172a;--accent:#0ea5a3}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:14px;box-shadow:0 10px 30px rgba(2,6,23,0.06);padding:30px;border:1px solid rgba(2,6,23,0.04)}.inner{text-align:center}.logo{max-width:140px;margin:0 auto 12px;display:block}.h1{font-size:20px;margin:6px 0}.lead{color:var(--muted)}.code{display:inline-block;padding:12px 18px;border-radius:10px;background:#f3f6f5;border:1px dashed rgba(15,23,42,0.06);font-weight:800;letter-spacing:3px;font-size:18px;margin-top:12px}.muted{font-size:13px;color:var(--muted)}footer{padding:18px;text-align:center;font-size:13px;color:var(--muted)}@media(max-width:520px){.card{padding:20px}}</style></head><body><div class='wrap'><div class='card' role='article'><div class='inner'><img class='logo' src='<companyLogo>' alt='<companyName> logo'/><h1 class='h1'>Verify your profile update</h1><p class='lead'>Hi <userName>, please confirm your profile update for <strong><companyName></strong> using the OTP below. It expires in <strong><expiryMinutes> minutes</strong>.</p><div class='code'><otpCode></div><p class='muted' style='margin-top:16px'>If you did not request this, you can safely ignore this email.</p><hr style='border:none;border-top:1px solid rgba(2,6,23,0.04);margin:18px 0'/><p style='margin:0;font-size:14px'>Regards,<br/>Support — <companyName></p></div></div><footer>This is an automated message — please do not reply.</footer></div></body></html>"
+},
+{
+  "name": "Learn-Signup-Email-Verification-OTP",
+  "subject": "Verify your email for <companyName>",
+  "subject-seeding": {
+    "companyName": "<companyName>"
+  },
+  "to": "<userEmail>",
+  "html-seeding": {
+    "userName": "<userName>",
+    "verificationCode": "<verificationCode>",
+    "expiryMinutes": "<expiryMinutes>",
+    "companyName": "<companyName>",
+    "companyLogo": "<companyLogo>"
+  },
+  "html-content": "<!doctype html><html lang='en'><head><meta charset='utf-8' /><meta name='viewport' content='width=device-width,initial-scale=1' /><title>Verify your email</title><style>:root{--bg:#f7fafc;--card:#ffffff;--accent:#0ea5a3;--muted:#64748b;--text:#0f172a}body{margin:0;background:var(--bg);font-family:Inter,system-ui,Roboto,Arial;color:var(--text);padding:32px}.wrap{max-width:680px;margin:0 auto}.card{background:var(--card);border-radius:14px;box-shadow:0 12px 36px rgba(2,6,23,0.06);padding:30px;border:1px solid rgba(2,6,23,0.04)}.logo{display:block;margin:0 auto 16px;max-width:140px}.h1{font-size:20px;text-align:center;margin-bottom:8px}.lead{color:var(--muted);text-align:center;margin-bottom:16px}.otp{display:block;margin:14px auto;padding:14px 20px;border-radius:12px;background:#f3f6f5;border:1px dashed rgba(15,23,42,0.06);font-weight:800;letter-spacing:4px;font-size:20px;width:max-content}.muted{font-size:13px;color:var(--muted);text-align:center}footer{padding:18px;text-align:center;font-size:13px;color:var(--muted)}@media(max-width:520px){.card{padding:20px}}</style></head><body><div class='wrap'><div class='card' role='article'><img class='logo' src='<companyLogo>' alt='<companyName> logo' /><h1 class='h1'>Verify your email</h1><p class='lead'>Hi <userName>,<br/>Use the verification code below to complete your signup for <strong><companyName></strong>. This code will expire in <strong><expiryMinutes> minutes</strong>.</p><div class='otp'><verificationCode></div><p class='muted'>If you did not request this, you can safely ignore this email.</p><hr style='border:none;border-top:1px solid rgba(2,6,23,0.04);margin:18px 0' /><p style='margin:0;font-size:14px'>Thanks,<br/>Team <strong><companyName></strong></p></div><footer>This is an automated message — please do not reply.</footer></div></body></html>"
+}
+
+]
