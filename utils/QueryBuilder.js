@@ -1,6 +1,7 @@
 /**
  * Advanced Query Builder for Mongoose
  * Supports filtering, sorting, pagination, populate & operators
+ * and more
  */
 
 class QueryBuilder {
