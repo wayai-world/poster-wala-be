@@ -15,7 +15,7 @@ const bookingRoute = require('./routes/bookingRoute');
 const reviewRoute = require('./routes/reviewRoute');
 const userRoute = require('./routes/userRoute');
 const analyticsRoute = require('./routes/analyticsRoute');
-// const companyRoute = require('./Routes/advertiserRoute');
+
 const path = require('path');
 
 const cors = require('cors');
