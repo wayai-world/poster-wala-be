@@ -2,10 +2,6 @@ const appError = require("./appError");
 const catchAsync = require("./catchAsyncWrapper");
 const QueryBuilder = require("./queryBuilder");
 
-
-
-
-
 exports.deleteOne = (Model) => {
     return catchAsync(async (req, res, next) => {
         if (!req.params?.id) {
