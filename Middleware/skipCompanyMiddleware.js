@@ -47,10 +47,12 @@ module.exports = catchAsync(async (req, res, next) => {
     // ✅ REPLACE GLOBAL MONGOOSE STATE WITH ALS
     als.run(
       {
-        skipCompany: true
+        skipCompany: true,
+        skipAuth: true
       },
       () => {
-
+        req.skipAuth = true,
+          req.skipCompany = true
         next();
       },
     );

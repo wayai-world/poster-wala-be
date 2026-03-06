@@ -10,6 +10,11 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
 
     console.log("CAME INTO MIDDLEWARE");
     let token;
+    if (req.skipAuth) {
+        console.log("came in skip auth")
+        return next()
+
+    }
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
         token = req.headers.authorization.split(' ')[1];
     } else if (req.cookies.jwt) {
@@ -51,6 +56,8 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
     //     ofCompany: freshUser.ofCompany,
     //     role: freshUser.role
     // });
+
+
     als.run(
         {
             user: freshUser,
@@ -59,7 +66,8 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
         },
         () => {
             req.user = freshUser;
-
+            ofCompany = freshUser.ofCompany;
+            role = freshUser.role
             next();
         },
     );
