@@ -15,8 +15,10 @@ const serviceAccount = {
     universe_domain: envs.firebase.universe_domain,
 };
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+    });
+}
 
-exports.admin = admin;
+module.exports = admin;
