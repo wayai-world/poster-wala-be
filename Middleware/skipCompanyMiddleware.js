@@ -10,7 +10,8 @@ module.exports = catchAsync(async (req, res, next) => {
     { method: "POST", url: "/api/v1/auth/login" },
     { method: "GET", url: "/api/v1/advertising-boards/*" },
     { method: "POST", url: "/api/v1/lead" },
-    { method: "GET", url: "/api/v1/advertising-boards" }
+    { method: "GET", url: "/api/v1/advertising-boards" },
+    { method: "POST", url: "/api/v1/auth/send-notification" },
 
   ];
 

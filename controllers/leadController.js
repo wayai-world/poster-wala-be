@@ -7,6 +7,7 @@ const appError = require("../utils/appError");
 const mongoose = require("mongoose");
 const catchAsync = require("../utils/catchAsyncWrapper");
 const { createBookingFromLead } = require("./bookingController");
+const { getOne, getAll } = require("../utils/crud");
 
 /**
  * create a short lead (public form)
@@ -106,19 +107,6 @@ exports.convertLeadToBooking = catchAsync(async (req, res, next) => {
 /**
  * get / list leads
  */
-exports.getLead = catchAsync(async (req, res, next) => {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) return next(new appError("Invalid id", 400));
-    const lead = await Lead.findById(id).populate("board", "name type location");
-    if (!lead) return next(new appError("Lead not found", 404));
-    res.status(200).json({ status: true, data: lead });
-});
+exports.getLead = getOne(Lead);
 
-exports.listLeads = catchAsync(async (req, res, next) => {
-    const { board, status, page = 1, limit = 25 } = req.query;
-    const q = { isActive: true };
-    if (board && mongoose.Types.ObjectId.isValid(board)) q.board = board;
-    if (status) q.status = status;
-    const leads = await Lead.find(q).sort({ createdAt: -1 }).skip((page - 1) * limit).limit(Number(limit));
-    res.status(200).json({ status: true, count: leads.length, data: leads });
-});
+exports.listLeads = getAll(Lead);

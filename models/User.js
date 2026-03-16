@@ -75,6 +75,9 @@ const userSchema = new mongoose.Schema({
     ofCompany: {
         type: mongoose.mongo.ObjectId,
         ref: "company"
+    },
+    deviceTokens: {
+        type: [Object]
     }
 
 

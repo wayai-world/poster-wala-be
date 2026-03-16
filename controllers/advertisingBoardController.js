@@ -5,7 +5,7 @@ const appError = require("../utils/appError");
 const mongoose = require("mongoose");
 const S3Service = require("../services/aws/s3Service");
 const catchAsync = require("../utils/catchAsyncWrapper");
-const { getAll } = require("../utils/crud");
+const { getAll, getOne, deleteOne } = require("../utils/crud");
 
 /**
  * multer: expects req.files with fields:
@@ -372,5 +372,5 @@ exports.updateBoard = catchAsync(async (req, res, next) => {
 
 
 exports.getAllBoards = getAll(AdvertisingBoard);
-exports.getBoardById = getAll(AdvertisingBoard);
-exports.deleteBoardById = getAll(AdvertisingBoard);
+exports.getBoardById = getOne(AdvertisingBoard);
+exports.deleteBoardById = deleteOne(AdvertisingBoard);
