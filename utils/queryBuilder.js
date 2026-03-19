@@ -88,6 +88,24 @@ class QueryBuilder {
 
             case "size":
                 return { [field]: { $size: parseInt(value) } };
+            case "availableBetween": {
+                // Extracts the custom "startDate,endDate" query format we just integrated into the frontend
+                const [start, end] = value.split(",");
+                const reqStart = this.castValue(start);
+                // If the user only selected a single date, we use it for both bounds
+                const reqEnd = this.castValue(end || start);
+
+                return {
+                    [field]: {
+                        $elemMatch: {
+                            startDate: { $gte: reqStart },
+                            endDate: { $lte: reqEnd },
+                            isAvailable: true
+                        }
+                    }
+                };
+            }
+
 
             // Nested array element match
             case "elemMatchElement": {

@@ -82,24 +82,16 @@ exports.convertLeadToBooking = catchAsync(async (req, res, next) => {
         totalAmount,
         currency,
         bookedBy: bookedBy || req.user?._id || null,
-        leadId: lead._id
     };
     console.log("Converting lead to booking with payload:", bookingPayload);
 
     const booking = await createBookingFromLead(bookingPayload);
     console.log("Booking created from lead:", booking);
 
-    // update lead
-    lead.status = "DEAL_CLOSED";
-    lead.bookingRef = booking._id;
-    lead.convertedToBooking = true;
-    lead.conversionDetails = {
-        bookingId: booking._id,
-        bookedAt: new Date(),
-        totalAmount,
-        currency
-    };
-    await lead.save();
+
+
+    // we need to delete lead now
+    await Lead.findByIdAndDelete(leadId);
 
     res.status(201).json({ status: true, data: booking, msg: "Lead converted to booking" });
 });

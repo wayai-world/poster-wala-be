@@ -93,6 +93,13 @@ exports.getOne = (Model) => {
 exports.getAll = (Model) => {
     return catchAsync(async (req, res, next) => {
 
+        // we need to delete empty objects from the query
+        Object.keys(req.query).forEach(key => {
+            if (req.query[key] === "") {
+                delete req.query[key];
+            }
+        });
+
         const builder = new QueryBuilder(
             Model.find(),   // tenant automatically injected
             req.query,

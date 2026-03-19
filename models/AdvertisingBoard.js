@@ -116,6 +116,10 @@ const AdvertisingBoardSchema = new Schema({
     isActive: { type: Boolean, default: true },
     isPublished: { type: Boolean, default: true },
 
+    // availiblity flags
+    isAvailableNowToBook: { type: Boolean, default: true },
+
+
 }, { timestamps: true });
 
 // geospatial index

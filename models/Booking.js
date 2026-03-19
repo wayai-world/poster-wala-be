@@ -17,7 +17,7 @@ const BookingSchema = new Schema({
     ofCompany: { type: Schema.Types.ObjectId, ref: "company", required: false },
 
     board: { type: Schema.Types.ObjectId, ref: "AdvertisingBoard", required: true },
-    lead: { type: Schema.Types.ObjectId, ref: "Lead", default: null },
+    // lead: { type: Schema.Types.ObjectId, ref: "Lead", default: null },
 
     // [startDate, endDate) convention
     startDate: { type: Date, required: true },
