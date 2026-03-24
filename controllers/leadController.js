@@ -67,7 +67,7 @@ exports.updateLead = catchAsync(async (req, res, next) => {
  */
 exports.convertLeadToBooking = catchAsync(async (req, res, next) => {
     const { id: leadId } = req.params;
-    const { slotId, startDate, endDate, totalAmount, currency = "INR", bookedBy } = req.body;
+    const { slotId, startDate, endDate, totalAmount, currency = "INR" } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(leadId)) return next(new appError("Invalid lead id", 400));
     const lead = await Lead.findById(leadId);
@@ -81,7 +81,8 @@ exports.convertLeadToBooking = catchAsync(async (req, res, next) => {
         endDate,
         totalAmount,
         currency,
-        bookedBy: bookedBy || req.user?._id || null,
+        bookedBy: req.user?._id || null,
+        leadData: lead,
     };
     console.log("Converting lead to booking with payload:", bookingPayload);
 

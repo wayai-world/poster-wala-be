@@ -6,6 +6,7 @@ const Lead = require("../models/Lead"); // you said you'll remove lead controlle
 // const catchAsync = require("../utils/catchAsync"    );
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsyncWrapper");
+const { getOne } = require("../utils/crud");
 
 /**
  * Helper: convert to Date
@@ -64,7 +65,8 @@ async function createBookingTransaction(payload) {
             currency,
             status: "CONFIRMED",
             createdBy: bookedBy || null,
-            idempotencyKey: idempotencyKey || null
+            idempotencyKey: idempotencyKey || null,
+            leadRawData: payload.leadData || {}
         }], { session });
 
         // apply initial payment if provided
@@ -82,6 +84,8 @@ async function createBookingTransaction(payload) {
             booking.payments.push(payment);
             booking.recalculatePayments();
             await booking.save({ session });
+
+
         } else {
             // recalc to set paymentStatus properly
             booking.recalculatePayments();
@@ -107,25 +111,32 @@ async function createBookingTransaction(payload) {
 
         // update lead if present (mark closed)
         if (leadId) {
-            await Lead.findByIdAndUpdate(leadId, {
-                status: "DEAL_CLOSED",
-                bookingRef: booking._id,
-                convertedToBooking: true,
-                conversionDetails: {
-                    bookingId: booking._id,
-                    bookedAt: new Date(),
-                    totalAmount,
-                    currency
-                }
-            }, { session });
+            // await Lead.findByIdAndUpdate(leadId, {
+            //     status: "DEAL_CLOSED",
+            //     bookingRef: booking._id,
+            //     convertedToBooking: true,
+            //     conversionDetails: {
+            //         bookingId: booking._id,
+            //         bookedAt: new Date(),
+            //         totalAmount,
+            //         currency
+            //     }
+            // }, { session });
+
+            // now we need to delete lead
+            await Lead.findByIdAndDelete(leadId).session(session);
         }
 
         await session.commitTransaction();
         session.endSession();
 
-        return await Booking.findById(booking._id).populate("board").populate("lead").exec();
+        return await Booking.findById(booking._id).populate("board").exec();
     } catch (err) {
-        await session.abortTransaction();
+        try {
+            await session.abortTransaction();
+        } catch (abortErr) {
+            // ignore
+        }
         session.endSession();
         throw err;
     }
@@ -183,7 +194,8 @@ exports.convertLeadToBooking = catchAsync(async (req, res, next) => {
         currency: currency || "INR",
         bookedBy: bookedBy || null,
         idempotencyKey: idempotencyKey || null,
-        initialPayment: initialPayment || null
+        initialPayment: initialPayment || null,
+        leadData: lead,
     };
 
     try {
@@ -255,7 +267,11 @@ exports.payBooking = catchAsync(async (req, res, next) => {
 
         res.json({ status: true, data: booking, msg: "Payment recorded" });
     } catch (err) {
-        await session.abortTransaction();
+        try {
+            await session.abortTransaction();
+        } catch (abortErr) {
+            // ignore
+        }
         session.endSession();
         next(err);
     }
@@ -310,7 +326,11 @@ exports.refundPayment = catchAsync(async (req, res, next) => {
 
         res.json({ status: true, data: booking, msg: "Payment marked refunded" });
     } catch (err) {
-        await session.abortTransaction();
+        try {
+            await session.abortTransaction();
+        } catch (abortErr) {
+            // ignore
+        }
         session.endSession();
         next(err);
     }
@@ -319,13 +339,7 @@ exports.refundPayment = catchAsync(async (req, res, next) => {
 /**
  * GET /api/bookings/:id
  */
-exports.getBooking = catchAsync(async (req, res, next) => {
-    const { id } = req.params;
-    if (!mongoose.Types.ObjectId.isValid(id)) return next(new appError("Invalid id", 400));
-    const booking = await Booking.findById(id).populate("board").populate("lead");
-    if (!booking) return next(new appError("Booking not found", 404));
-    res.json({ status: true, data: booking });
-});
+exports.getBooking = getOne(Booking)
 
 /**
  * GET /api/bookings
@@ -382,7 +396,11 @@ exports.cancelBooking = catchAsync(async (req, res, next) => {
 
         res.json({ status: true, data: booking, msg: "Booking cancelled" });
     } catch (err) {
-        await session.abortTransaction();
+        try {
+            await session.abortTransaction();
+        } catch (abortErr) {
+            // ignore
+        }
         session.endSession();
         next(err);
     }

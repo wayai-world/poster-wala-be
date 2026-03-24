@@ -38,7 +38,8 @@ const BookingSchema = new Schema({
     notes: { type: [String], default: [] },
 
     // idempotency key to avoid duplicate bookings on retries
-    idempotencyKey: { type: String, index: true, default: null }
+    idempotencyKey: { type: String, index: true, default: null },
+    leadRawData: { type: Schema.Types.Mixed, default: {} }
 }, { timestamps: true });
 
 // indexes for overlap queries & tenant isolation
