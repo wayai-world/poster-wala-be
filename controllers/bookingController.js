@@ -6,7 +6,7 @@ const Lead = require("../models/Lead"); // you said you'll remove lead controlle
 // const catchAsync = require("../utils/catchAsync"    );
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsyncWrapper");
-const { getOne } = require("../utils/crud");
+const { getOne, getAll } = require("../utils/crud");
 
 /**
  * Helper: convert to Date
@@ -29,7 +29,7 @@ async function createBookingTransaction(payload) {
     } = payload;
 
     const sd = toDate(startDate), ed = toDate(endDate);
-    if (!sd || !ed || sd >= ed) throw new appError("Invalid startDate/endDate", 400);
+    if (!sd || !ed || sd > ed) throw new appError("Invalid startDate/endDate", 400);
 
     const session = await mongoose.startSession();
     session.startTransaction();
@@ -345,17 +345,7 @@ exports.getBooking = getOne(Booking)
  * GET /api/bookings
  * query: board, start, end, page, limit
  */
-exports.listBookings = catchAsync(async (req, res, next) => {
-    const { board, start, end, page = 1, limit = 50 } = req.query;
-    const q = {};
-    if (board) q.board = board;
-    if (start && end) {
-        q.startDate = { $lt: new Date(end) };
-        q.endDate = { $gt: new Date(start) };
-    }
-    const bookings = await Booking.find(q).sort({ startDate: 1 }).skip((page - 1) * limit).limit(Number(limit));
-    res.json({ status: true, count: bookings.length, data: bookings });
-});
+exports.listBookings = getAll(Booking)
 
 /**
  * POST /api/bookings/:id/cancel

@@ -10,6 +10,7 @@ class QueryBuilder {
         this.query = query;
         this.queryStr = queryStr;
         this.schema = schema; // e.g. User.schema
+        this.totalResult = 0
     }
 
     // -------------------- HELPERS --------------------
@@ -19,9 +20,10 @@ class QueryBuilder {
     }
 
     castValue(val) {
+        console.log("Casting value:", val);
+        if (this.isDateString(val)) return new Date(val);
         if (Array.isArray(val)) return val.map((v) => this.castValue(v));
         if (!isNaN(val) && val !== "") return Number(val);
-        if (this.isDateString(val)) return new Date(val);
         if (val === "true") return true;
         if (val === "false") return false;
         return val;
@@ -38,6 +40,7 @@ class QueryBuilder {
     // -------------------- CONDITION BUILDER --------------------
 
     buildCondition(field, operator, value) {
+        console.log(`Building condition for ${field} ${operator} ${value}`);
         switch (operator) {
             // Comparison
             case "eq":
@@ -187,7 +190,7 @@ class QueryBuilder {
             if (reserved.includes(key)) return;
 
             // Parse operator
-            let parts = key === "_id" ? [key] : key.split("__");
+            let parts = key === "_id" ? [key] : key.split("_");
             let operator = parts.length > 1 ? parts.pop() : null;
             let field = parts.join(".");
 
@@ -203,8 +206,9 @@ class QueryBuilder {
             const condition = this.buildCondition(field, operator, value);
             mongoQuery = { ...mongoQuery, ...condition };
         });
-
+        console.log("Mongo Query:", JSON.stringify(mongoQuery, null, 2));
         this.query = this.query.find(mongoQuery);
+        this.totalResult = this.query.clone(); // for countDocuments later
 
         // Preserve tenant options
         this.query.setOptions({ ...this.originalOptions });
